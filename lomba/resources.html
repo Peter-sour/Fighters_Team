@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <title>Resources</title>
+</head>
+<body>
+    <div id="particles-js"></div> 
+    <!-- Resources Section -->
+    <header id="header" id="navbar">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    Mind<span>Space</span>
+                </a>
+                <ul class="nav-links" id="navmenu">
+                    <li><a href="beranda.html#hero" class="active">Home</a></li>
+                    <li><a href="beranda.html#about">About</a></li>
+                    <li><a href="resources.html" target="_self">Resources</a></li> 
+                    <li><a href="beranda.html#exercises">Exercises</a></li>
+                    <li><a href="beranda.html#contact">Get Help</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <section id="resources" class="section">
+        <div class="container">
+            <h2 class="section-title">Mental Health Resources</h2>
+            <p class="section-subtitle">Curated content to help you understand, manage, and improve your mental wellbeing</p>
+            
+            <div class="filter-container">
+                <button class="filter-button active" data-filter="all">All Resources</button>
+                <button class="filter-button" data-filter="anxiety">Anxiety</button>
+                <button class="filter-button" data-filter="depression">Depression</button>
+                <button class="filter-button" data-filter="stress">Stress Management</button>
+                <button class="filter-button" data-filter="selfcare">Self-Care</button>
+                <button class="filter-button" data-filter="relationships">Relationships</button>
+            </div>
+            
+            <div class="resources-grid">
+                <div class="resource-card" data-category="anxiety">
+                    <img src="https://i.pinimg.com/736x/34/44/f3/3444f3492eaf453659bd375ae2cee9b3.jpg" alt="Understanding Anxiety" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Anxiety</span>
+                        <h3 class="resource-title">Understanding Teen Anxiety</h3>
+                        <p class="resource-description">Learn about common anxiety triggers and effective coping strategies for teenagers.</p>
+                        <a href="https://www.psychologytoday.com/us/blog/teen-angst/201502/understanding-teen-anxiety" target="_blank" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="depression">
+                    <img src="https://i.pinimg.com/736x/97/2d/f4/972df4eea35ef101f572cfbc040127a2.jpg" alt="Depression Signs" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Depression</span>
+                        <h3 class="resource-title">Recognizing Depression Signs</h3>
+                        <p class="resource-description">Identify early warning signs of depression and learn when to seek professional help.</p>
+                        <a href="https://www.mayoclinic.org/diseases-conditions/teen-depression/symptoms-causes/syc-20350985" target="_blank" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+         
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="stress">
+                    <img src="https://i.pinimg.com/736x/bc/c8/05/bcc8050bc4317890a0e0697b45abb9a3.jpg" alt="Stress Management" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Stress Management</span>
+                        <h3 class="resource-title">Exam Stress Toolkit</h3>
+                        <p class="resource-description">Practical techniques to manage academic pressure and perform better during exams.</p>
+                        <a href="https://www.savethestudent.org/extra-guides/top-tips-to-beat-the-exam-stress.html" target="_blank" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="selfcare">
+                    <img src="https://i.pinimg.com/736x/57/0b/34/570b34e74a522417b21fa754b0330624.jpg" alt="Self-Care Routines" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Self-Care</span>
+                        <h3 class="resource-title">Daily Self-Care Routines</h3>
+                        <p class="resource-description">Simple yet effective self-care practices to incorporate into your daily life.</p>
+                        <a href="https://zoelifepsychiatricservices.com/self-care-practices/" target="_blank" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="relationships">
+                    <img src="https://i.pinimg.com/736x/ab/90/85/ab908510af9b6facbf2c230b84e922f0.jpg" alt="Healthy Relationships" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Relationships</span>
+                        <h3 class="resource-title">Building Healthy Relationships</h3>
+                        <p class="resource-description">Learn how to establish and maintain positive relationships with friends and family.</p>
+                        <a href="https://www.loveisrespect.org/healthy-relationships/" target="_blank" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="anxiety">
+                    <img src="https://i.pinimg.com/736x/43/7c/50/437c501ccb9f9b1c4f8a9e616a99cac7.jpg" alt="Meditation Guide" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Anxiety</span>
+                        <h3 class="resource-title">Teen Meditation Guide</h3>
+                        <p class="resource-description">Step-by-step instructions for meditation techniques specifically designed for teenagers.</p>
+                        <a href="https://kidshealth.org/en/teens/meditation.html" target="_blank" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--footer-->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">MindfulTeen</a>
+                    <p>Portal kesehatan mental yang dirancang khusus untuk remaja Indonesia. Kami hadir untuk memberikan dukungan, informasi, dan sumber daya yang kamu butuhkan untuk kesejahteraan mentalmu.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph ph-tiktok-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph ph-youtube-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph ph-x-logo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Layanan Kami</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Konseling Online</a></li>
+                        <li><a href="#">Tes Kesehatan Mental</a></li>
+                        <li><a href="#">Support Group</a></li>
+                        <li><a href="#">Webinar & Workshop</a></li>
+                        <li><a href="#">Konsultasi dengan Psikolog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Topik Populer</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Mengelola Kecemasan</a></li>
+                        <li><a href="#">Mengatasi Depresi</a></li>
+                        <li><a href="#">Bullying & Cyberbullying</a></li>
+                        <li><a href="#">Body Image yang Sehat</a></li>
+                        <li><a href="#">Hubungan & Persahabatan</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Informasi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Tim Profesional</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="button-container">
+                <input type="checkbox" class="theme-checkbox">
+            </div> -->
+            <div class="copyright">
+                <p>&copy; 2025 MindfulTeen. Semua hak cipta dilindungi. Dirancang dengan 💙 untuk remaja Indonesia.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="resources.js"></script>
+     <!-- Bootstrap JS -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+     <!-- Particles JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="spyder.js"></script>
+    <script src="cursor.js"></script>
+    <script src="mobile-btn.js"></script>
+    <script src="transparent.js"></script>
+</body>
+</html>

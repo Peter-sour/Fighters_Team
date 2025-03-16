@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpace | Mental Health Portal for Teens</title>
+    <link rel="stylesheet" href="beranda.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    /* Global Styles */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #8b5cf6;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text:  #374151;
+            --text-light: #9ca3af;
+            --background: #ffffff;
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --header: #ffffff;
+            --footdark: #1f2937 ;
+            --primary-color: #00d1ff; 
+            --secondary-color: #5d3fd3; 
+            --accent-color: #ff007f;
+            --filtertext:  #374151;
+            --navbar-scroll: #ffffff;
+            --nav-bg-normal: #ffffff;
+        }
+
+        /*Dark Mode*/
+        .dark-mode {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --secondary: #f472b6;
+            --accent: #c084fc;
+            --light: #1f2937;
+            --dark: #CBD5E1 ;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --text: #e5e7eb ;
+            --text-light: #9ca3af;
+            --background: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06);
+            --header:rgb(124, 61, 233) ; 
+            --footdark: #111827;
+            --filtertext:  #374151;
+            --nav-bg-normal: rgb(124, 61, 233) ;
+        }
+        .navbar.transparent {
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        .navbar.normal {
+            background-color: var(--nav-bg-normal);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 800%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Supaya tidak menutupi konten utama */
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Loading screen */
+        .loading-container{
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .title-loading{
+             font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .loading-text{
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color) );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .loading-bar-container{
+            width: 300px;
+            height: 10px;
+            outline: 1px solid red;
+            background-color: rgba(0, 0, 0, 0);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .loading-bar{
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4286f4, #42c5f4);
+            border-radius: 10px;
+            transition: width 0.3s ease; /* Percepat transisi dari 0.5s menjadi 0.3s */
+            box-shadow: 0 0 10px rgba(66, 134, 244, 0.7);
+        }
+        .spinner {
+            margin: 20px auto;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #4286f4;
+            animation: spin 0.6s linear infinite; /* Percepat animasi dari 1s menjadi 0.6s */
+        }
+        .loading-percentage{
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: var(--header);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        #header.transparent {
+            background-color: transparent;
+            box-shadow: none;
+        }
+        #header.normal {
+            background-color: var(--nav-bg-normal);
+            box-shadow: var(--shadow);
+        }
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+        .logo svg {
+            margin-right: 10px;
+            height: 32px;
+            width: 32px;
+        }
+        .nav-links {
+            display: flex;
+            list-style-type: none;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+        }
+        /*mode gelap */
+        .theme-checkbox {
+        --toggle-size: 16px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 6.25em;
+        height: 3.125em;
+        background: -webkit-gradient(linear, left top, right top, color-stop(50%, #efefef), color-stop(50%, #2a2a2a)) no-repeat;
+        background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background-size: 205%;
+        background-position: 0;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 99em;
+        position: relative;
+        cursor: pointer;
+        font-size: var(--toggle-size);
+        }
+
+        .theme-checkbox::before {
+        content: "";
+        width: 2.25em;
+        height: 2.25em;
+        position: absolute;
+        top: 0.438em;
+        left: 0.438em;
+        background: -webkit-gradient(linear, left top, right top, color-stop(50%, #efefef), color-stop(50%, #2a2a2a)) no-repeat;
+        background: -o-linear-gradient(left, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+        background-size: 205%;
+        background-position: 100%;
+        border-radius: 50%;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+        }
+
+        .theme-checkbox:checked::before {
+        left: calc(100% - 2.25em - 0.438em);
+        background-position: 0;
+        }
+
+        .theme-checkbox:checked {
+        background-position: 100%;
+        }
+        /*akir code */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        #hero {
+            padding-top: 120px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-content {
+            width: 50%;
+            animation: fadeInLeft 1s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hero-image {
+            width: 50%;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Features Section */
+        #features {
+            background-color: var(--light);
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--text-light);
+        }
+        .reveal-from-top{
+            opacity: 0;
+            transform: translateY(-50px);
+            transition: opacity 0.8s ease, transfrom 0.8s ease;
+            visibility: hidden;
+            cursor: pointer;
+        }
+        .reveal-from-top.active{
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+        /* Resources Section */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            background-color: var(--card);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+        }
+
+        .resource-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .resource-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .resource-link {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .resource-link svg {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-link:hover svg {
+            transform: translateX(5px);
+        }
+        /* Testimonials Section */
+        #testimonials {
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slider {
+            overflow: hidden;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-card {
+            min-width: 100%;
+            padding: 2rem;
+            background-color: var(--card);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 0 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .testimonial-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--border);
+            margin: 0 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            background-color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-right: 1rem;
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            color: var(--text-light);
+        }
+
+        .contact-form {
+            background-color: var(--card);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            height: 98%;
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Crisis Help Section */
+        #crisis-help {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .crisis-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .crisis-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .crisis-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .btn-white {
+            background-color: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footdark);
+            color: white;
+            padding: 4rem 0 1rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-about p {
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .social-links a i{
+            color:white;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #9ca3af;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /*scrollTop*/
+        #scrollTopBtn{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:40px;
+            margin-top: 560px ;
+            padding-right: 30px;
+            display: none;
+            z-index: 100000;
+            opacity: 0; 
+            transform: scale(0.8); 
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            pointer-events: none; 
+        }
+        #scrollTopBtn.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .modul-scrolltop{
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ec4899, #10b981);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            float: right;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .modul-scrolltop i{
+            color: white;
+            font-size: 1.6rem;
+            margin: 10px;
+        }
+        /* Animations */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-content, .hero-image {
+                width: 100%;
+            }
+
+            .hero-content {
+                margin-bottom: 3rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                order: 2;
+            }
+
+            .contact-form {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                background-color: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                background-color: var(--light);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+                cursor: pointer;
+            }
+
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+            .loading-text{
+                font-size: 1rem;
+                color: #ccc;
+            }
+            .loading-bar-container{
+                width: 80%;
+                max-width: 600px;
+                height: 20px;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                margin-bottom: 1rem;
+            }
+            .loading-percentage{
+                font-size: 1rem;
+            }
+        }
+
+        /* Custom Elements for Mental Health Focus */
+        .mood-tracker {
+            background-color: var(--card);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        .mood-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .mood-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mood-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mood-option:hover {
+            transform: translateY(-5px);
+        }
+
+        .mood-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mood-label {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .mood-submit {
+            text-align: center;
+        }
+
+        /* Resources Filter */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .filter-button {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            background-color: white;
+            border: 1px solid var(--border);
+            color: var(--filtertext);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover, .filter-button.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            background-color: var(--card);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-top: 3rem;
+        }
+
+        .progress-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .progress-day {
+            height: 40px;
+            background-color: var(--border);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-day.completed {
+            background-color: var(--success);
+        }
+
+        .progress-day:hover {
+            transform: scale(1.1);
+        }
+
+        .progress-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            margin-right: 0.5rem;
+        }
+
+        .legend-color.completed {
+            background-color: var(--success);
+        }
+
+        .legend-color.pending {
+            background-color: var(--border);
+        }
+
+        /* Exercises Section */
+        .exercise-card {
+            background-color: var(--card);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .exercise-header {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .exercise-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .exercise-body {
+            padding: 1.5rem;
+        }
+
+        .exercise-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .exercise-step {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 1.5rem;
+            counter-increment: step-counter;
+        }
+
+        .exercise-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .exercise-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-btn:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+        #resources{
+            display: none;
+        }
+         /* Kontainer Modal */
+         .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+            z-index: 1000000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color:  rgb(124, 61, 233);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-container h2{
+            color: var(--text);
+        }
+        .modal-container p{
+            color: var(--text);
+        }
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+        .start-button {
+            padding: 10px 20px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            background-color: #1976d2;
+        }
+        /* Tombol tutup Modal */
+        #closeModalBtn {
+            display: none;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: black;
+            transition: color 0.3s ease;
+        }
+
+        #closeModalBtn:hover {
+            color: #333;
+        }
+
+        /* Styling untuk latihan pernapasan */
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color:var(--primary-color) ;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 20px rgba(100, 181, 246, 0.5);
+            transition: transform 4s ease, box-shadow 4s ease, background-color 4s ease;
+            margin: 20px auto;
+            cursor: pointer; /* Menandakan bahwa lingkaran dapat diklik */
+        }
+
+        .breathing-circle:hover {
+            box-shadow: 0 0 25px rgba(100, 181, 246, 0.7); /* Efek hover untuk menandakan clickable */
+        }
+
+        .circle-text {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            z-index: 2;
+            transition: opacity 0.5s ease;
+            pointer-events: none; /* Agar klik pada teks tidak mengganggu klik pada lingkaran */
+        }
+
+        .loading-ring {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 10px solid rgba(255, 255, 255, 0.2);
+            border-top: 10px solid white;
+            animation: spin 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none; /* Agar klik dapat menembus ke lingkaran */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .breath-in {
+            transform: scale(1.3);
+            box-shadow: 0 0 40px rgba(100, 181, 246, 0.8);
+            background-color: #2196f3;
+        }
+
+        .breath-hold {
+            transform: scale(1.3);
+            box-shadow: 0 0 40px rgba(100, 181, 246, 0.8);
+            background-color: #1976d2;
+        }
+
+        .breath-out {
+            transform: scale(1);
+            box-shadow: 0 0 20px rgba(100, 181, 246, 0.5);
+            background-color: #64b5f6;
+        }
+
+        .modal-title {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .achievement {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 15px;
+            font-weight: bold;
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .show-achievement {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body >
+   <!-- Header -->
+    <div id="particles-js"></div>
+    <header id="header" id="navbar">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    Mind<span>Space</span>
+                </a>
+                <ul class="nav-links" id="navmenu">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="resources.html" target="_self">Resources</a></li> 
+                    <li><a href="#exercises">Exercises</a></li>
+                    <li><a href="#contact">Get Help</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="content user" >
+        <!-- <div class="canvas-container" id="hero-canvas"></div> -->
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Your Mental Health Journey Starts Here</h1>
+                <p class="hero-subtitle">Discover resources, connect with experts, and learn practical tools to support your mental wellbeing. You're not alone in this journey.</p>
+                <div class="hero-buttons">
+                    <a href="#resources" class="btn btn-primary">Explore Resources</a>
+                    <a href="#contact" class="btn btn-outline">Get Help Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--About Section -->
+    <section id="about" class="section content user">
+        <div class="container">
+            <h2 class="section-title">About MindSpace</h2>
+            <p class="section-subtitle">A safe space dedicated to teen mental health awareness, education, and support</p>
+            
+            <div class="mood-tracker reveal-from-top">
+                <h3 class="mood-title">How are you feeling today?</h3>
+                <div class="mood-options">
+                    <div class="mood-option" data-mood="happy">
+                        <div class="mood-emoji">😊</div>
+                        <div class="mood-label">Happy</div>
+                    </div>
+                    <div class="mood-option" data-mood="okay">
+                        <div class="mood-emoji">😐</div>
+                        <div class="mood-label">Okay</div>
+                    </div>
+                    <div class="mood-option" data-mood="sad">
+                        <div class="mood-emoji">😔</div>
+                        <div class="mood-label">Sad</div>
+                    </div>
+                    <div class="mood-option" data-mood="stressed">
+                        <div class="mood-emoji">😫</div>
+                        <div class="mood-label">Stressed</div>
+                    </div>
+                    <div class="mood-option" data-mood="anxious">
+                        <div class="mood-emoji">😰</div>
+                        <div class="mood-label">Anxious</div>
+                    </div>
+                    <div class="mood-option" data-mood="tired">
+                        <div class="mood-emoji">😴</div>
+                        <div class="mood-label">Tired</div>
+                    </div>
+                </div>
+                <div class="mood-submit">
+                    <button class="btn btn-primary" id="track-mood">Track My Mood</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section content user">
+        <div class="container">
+            <h2 class="section-title">Our Features</h2>
+            <p class="section-subtitle">Comprehensive tools and resources to support your mental wellbeing journey</p>
+            
+            <div class="features-container">
+                <div  onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });" class="feature-card reveal-from-top">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Personal Support</h3>
+                    <p class="feature-description">Connect with mental health professionals and peers who understand what you're going through.</p>
+                </div>
+                
+                <div  onclick="window.location.href='resources.html';" class="feature-card reveal-from-top">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Educational Resources</h3>
+                    <p class="feature-description">Access a wide range of articles, videos, and tools designed specifically for teenagers.</p>
+                </div>
+                
+                <div class="feature-card reveal-from-top" id="openModalBtn">
+                    <div class="feature-icon">
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg> -->
+                        <i class="ph ph-wind"></i>
+                    </div>
+                    <h3 class="feature-title">Interactive Breathing</h3>
+                    <p class="feature-description">Breathing exercises can help relieve stress, improve focus, and improve overall health. Follow the guidelines and do them consistently for best results.</p>
+                </div>
+
+                <div onclick="document.getElementById('exercises').scrollIntoView({ behavior: 'smooth' });"  class="feature-card reveal-from-top">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                            <line x1="4" y1="22" x2="4" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Mindfulness Exercises</h3>
+                    <p class="feature-description">Learn practical techniques to manage stress, anxiety, and improve your overall mental wellbeing.</p>
+                </div>
+                
+                <div class="feature-card reveal-from-top"  data-bs-toggle="modal" data-bs-target="#stellarJournalModal">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Stellar Journal</h3>
+                    <p class="feature-description">Explore the universe of your mind through a daily journal with cosmic prompt guidance to help teens express emotions in a more structured way.</p>
+                </div>
+                
+                <div class="feature-card reveal-from-top">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Goal Setting</h3>
+                    <p class="feature-description">Set and track personal mental wellness goals with our easy-to-use progress tracking system.</p>
+                </div>
+                
+            </div>
+            <!-- Modal Overlay -->
+            <div class="modal-overlay" id="modalOverlay">
+                <div class="modal-container" >
+                    <i id="closeModalBtn" class="ph ph-x"></i>
+
+                    <h2 class="modal-title">Interactive Breathing Exercises</h2>
+                    <p class="modal-desc">Follow these breathing guidelines for optimal relaxation. Click on the circle or button below to get started.</p>
+                    
+                    <div class="breathing-circle" id="breathingCircle">
+                        <div class="loading-ring" id="loadingRing"></div>
+                        <div class="circle-text" id="circleText"></div>
+                    </div>
+                    
+                    <button class="start-button" id="startButton">Start breathing</button>
+
+                    <div class="achievement" id="achievement">Exercise Finished!</div>
+                </div>
+            </div>
+            <!-- Stellar Journal Modal -->
+            <div class="modal fade stellar-modal" id="stellarJournalModal" tabindex="-1" aria-labelledby="stellarJournalModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title d-flex align-items-center gap-2" id="stellarJournalModalLabel">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stars star-icon" viewBox="0 0 16 16">
+                                    <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/>
+                                </svg>
+                                Stellar Journal
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="cosmic-title mb-3">Guided Journaling with Cosmic Prompts</h4>
+                            <p class="text-light opacity-75 mb-4">
+                                Embark on a journey through your inner universe with our guided journaling experience.
+                                Express your emotions among the stars and find clarity in the cosmic void.
+                            </p>
+                            
+                            <!-- Tabs -->
+                            <ul class="nav nav-tabs" id="journalTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="write-tab" data-bs-toggle="tab" data-bs-target="#write" type="button" role="tab" aria-controls="write" aria-selected="true">Write</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="entries-tab" data-bs-toggle="tab" data-bs-target="#entries" type="button" role="tab" aria-controls="entries" aria-selected="false">Past Entries</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content" id="journalTabsContent">
+                                <!-- Write Tab -->
+                                <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
+                                    <!-- Today's Prompt -->
+                                    <div class="journal-prompt mb-4">
+                                        <h5 class="cosmic-title">Today's Cosmic Prompt:</h5>
+                                        <p class="mb-2" id="currentPrompt">
+                                            If your emotions were celestial bodies, which ones would be the brightest today? 
+                                            Describe why they shine so brightly in your inner sky.
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Journal Entry Area -->
+                                    <div class="mb-3">
+                                        <label for="journalEntry" class="form-label cosmic-title">Your Cosmic Thoughts</label>
+                                        <textarea class="form-control bg-light text-dark border-secondary" id="journalEntry" rows="5" placeholder="Start your stellar journey here..."></textarea>
+                                    </div>
+                                </div>
+                                
+                                <!-- Past Entries Tab -->
+                                <div class="tab-pane fade" id="entries" role="tabpanel" aria-labelledby="entries-tab">
+                                    <h5 class="cosmic-title mb-3">Your Cosmic Journey</h5>
+                                    <div class="entries-list" id="entriesList">
+                                        <!-- Entries will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" id="deleteEntryBtn" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                </svg>
+                                Delete Entry
+                            </button>
+                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="save-entry" id="saveEntryBtn" style="background: linear-gradient(to right, #8b5cf6, #4338ca); border: none;">Save Entry</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Save Success Notification -->
+            <div class="save-success" id="saveSuccess">
+                <div class="d-flex align-items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    Journal entry saved successfully!
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <h3 class="progress-title">Your Wellness Journey</h3>
+                <div class="progress-grid">
+                    <div class="progress-day completed"></div>
+                    <div class="progress-day completed"></div>
+                    <div class="progress-day completed"></div>
+                    <div class="progress-day"></div>
+                    <div class="progress-day"></div>
+                    <div class="progress-day"></div>
+                    <div class="progress-day"></div>
+                </div>
+                <div class="progress-legend">
+                    <div class="legend-item">
+                        <div class="legend-color completed"></div>
+                        <span>Completed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color pending"></div>
+                        <span>Upcoming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section">
+        <div class="container">
+            <h2 class="section-title">Mental Health Resources</h2>
+            <p class="section-subtitle">Curated content to help you understand, manage, and improve your mental wellbeing</p>
+            
+            <div class="filter-container">
+                <button class="filter-button active" data-filter="all">All Resources</button>
+                <button class="filter-button" data-filter="anxiety">Anxiety</button>
+                <button class="filter-button" data-filter="depression">Depression</button>
+                <button class="filter-button" data-filter="stress">Stress Management</button>
+                <button class="filter-button" data-filter="selfcare">Self-Care</button>
+                <button class="filter-button" data-filter="relationships">Relationships</button>
+            </div>
+            
+            <div class="resources-grid">
+                <div class="resource-card" data-category="anxiety">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.IPGgafP4NvQzlHK047QLaAHaGl&pid=Api&P=0&h=220" alt="Understanding Anxiety" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Anxiety</span>
+                        <h3 class="resource-title">Understanding Teen Anxiety</h3>
+                        <p class="resource-description">Learn about common anxiety triggers and effective coping strategies for teenagers.</p>
+                        <a href="#" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="depression">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.Bt1Uzz_828L3-DqP0vnwtAHaHa&pid=Api&P=0&h=220" alt="Depression Signs" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Depression</span>
+                        <h3 class="resource-title">Recognizing Depression Signs</h3>
+                        <p class="resource-description">Identify early warning signs of depression and learn when to seek professional help.</p>
+                        <a href="https://www.mayoclinic.org/diseases-conditions/teen-depression/symptoms-causes/syc-20350985" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="stress">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.dS9S4qfRMtDsHMqMpO0GZgHaE8&pid=Api&P=0&h=220" alt="Stress Management" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Stress Management</span>
+                        <h3 class="resource-title">Exam Stress Toolkit</h3>
+                        <p class="resource-description">Practical techniques to manage academic pressure and perform better during exams.</p>
+                        <a href="#" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="selfcare">
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.TblPgPofW_BybefKFdKjbQHaHa&pid=Api&P=0&h=220" alt="Self-Care Routines" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Self-Care</span>
+                        <h3 class="resource-title">Daily Self-Care Routines</h3>
+                        <p class="resource-description">Simple yet effective self-care practices to incorporate into your daily life.</p>
+                        <a href="#" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="relationships">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.fMwTz46pSXnT2pZv6-fkZAHaHa&pid=Api&P=0&h=220" alt="Healthy Relationships" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Relationships</span>
+                        <h3 class="resource-title">Building Healthy Relationships</h3>
+                        <p class="resource-description">Learn how to establish and maintain positive relationships with friends and family.</p>
+                        <a href="#" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="resource-card" data-category="anxiety">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.BGFl8Fivdz4KNtdATXDvZwAAAA&pid=Api&P=0&h=220" alt="Meditation Guide" class="resource-image">
+                    <div class="resource-content">
+                        <span class="resource-tag">Anxiety</span>
+                        <h3 class="resource-title">Teen Meditation Guide</h3>
+                        <p class="resource-description">Step-by-step instructions for meditation techniques specifically designed for teenagers.</p>
+                        <a href="#" class="resource-link">Read More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercises Section -->
+    <section id="exercises" class="section content user">
+        <div class="container">
+            <h2 class="section-title">Mental Wellness Exercises</h2>
+            <p class="section-subtitle">Practical activities to improve your mental health and emotional wellbeing</p>
+            
+            <div class="features-container">
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <h3 class="exercise-title">5-Minute Breathing Exercise</h3>
+                        <p class="exercise-subtitle">Quick anxiety relief technique</p>
+                    </div>
+                    <div class="exercise-body">
+                        <ul class="exercise-steps">
+                            <li class="exercise-step">Find a comfortable seated position and close your eyes</li>
+                            <li class="exercise-step">Breathe in slowly through your nose for 4 counts</li>
+                            <li class="exercise-step">Hold your breath for 2 counts</li>
+                            <li class="exercise-step">Exhale slowly through your mouth for 6 counts</li>
+                            <li class="exercise-step">Repeat for 5 minutes, focusing only on your breath</li>
+                        </ul>
+                        <button class="exercise-btn">Start Exercise</button>
+                    </div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <h3 class="exercise-title">Gratitude Journal</h3>
+                        <p class="exercise-subtitle">Cultivate positive thinking</p>
+                    </div>
+                    <div class="exercise-body">
+                        <ul class="exercise-steps">
+                            <li class="exercise-step">Set aside 5-10 minutes at the end of each day</li>
+                            <li class="exercise-step">Reflect on three things you're grateful for today</li>
+                            <li class="exercise-step">Write them down with as much detail as possible</li>
+                            <li class="exercise-step">Include why each thing makes you feel grateful</li>
+                            <li class="exercise-step">Review your entries weekly to boost positive emotions</li>
+                        </ul>
+                        <button class="exercise-btn">Start Journaling</button>
+                    </div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <h3 class="exercise-title">Progressive Muscle Relaxation</h3>
+                        <p class="exercise-subtitle">Reduce physical tension</p>
+                    </div>
+                    <div class="exercise-body">
+                        <ul class="exercise-steps">
+                            <li class="exercise-step">Lie down in a comfortable position</li>
+                            <li class="exercise-step">Tense your feet muscles for 5 seconds, then release</li>
+                            <li class="exercise-step">Move up to your calves, thighs, and so on</li>
+                            <li class="exercise-step">Work your way up to your face muscles</li>
+                            <li class="exercise-step">Notice the difference between tension and relaxation</li>
+                        </ul>
+                        <button class="exercise-btn">Start Exercise</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section content user">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <p class="section-subtitle">Hear from other teens who have benefited from our resources and support</p>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"The breathing exercises helped me manage my panic attacks before exams. I went from failing due to anxiety to getting top grades. The difference is incredible!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://s.yimg.com/fz/api/res/1.2/gI4Y2BFBcdCtEFo3DdwKNg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD05Njt3PTk2/https://tse4.mm.bing.net/th?q=Foto+Profil+Wa+Kosong&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=strict&t=1" alt="Sarah, 16" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Sarah, 16</h4>
+                                <p>High School Student</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"I struggled with depression for years without knowing what it was. MindSpace helped me recognize the signs and connect with a therapist. I finally feel like myself again."</p>
+                        <div class="testimonial-author">
+                            <img src="https://s.yimg.com/fz/api/res/1.2/gI4Y2BFBcdCtEFo3DdwKNg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD05Njt3PTk2/https://tse4.mm.bing.net/th?q=Foto+Profil+Wa+Kosong&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=strict&t=1" alt="Jason, 17" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Jason, 17</h4>
+                                <p>Student Athlete</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"The resources on healthy relationships helped me set better boundaries with my friends. I'm no longer afraid to speak up for myself and it's changed everything."</p>
+                        <div class="testimonial-author">
+                            <img src="https://s.yimg.com/fz/api/res/1.2/gI4Y2BFBcdCtEFo3DdwKNg--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpbGw7aD05Njt3PTk2/https://tse4.mm.bing.net/th?q=Foto+Profil+Wa+Kosong&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=strict&t=1" alt="Maya, 15" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Maya, 15</h4>
+                                <p>High School Student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-controls">
+                    <div class="testimonial-dot active"></div>
+                    <div class="testimonial-dot"></div>
+                    <div class="testimonial-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--contack sesion-->
+    <section id="contact" class="content user">
+        <div class="container">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="ph ph-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Telepon</h4>
+                            <p>+62 821 2345 6789</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="ph ph-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>info@example.co.id</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="ph ph-map-pin-line"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Lokasi</h4>
+                            <p>Jl. Sudirman No. 123, Jakarta Pusat, 10220</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="ph ph-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Jam Operasional</h4>
+                            <p>Senin - Jumat: 08:00 - 17:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Kirim Pesan</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subjek</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Pesan</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Crisis Help Section -->
+    <section id="crisis-help" class="content user">
+        <div class="container">
+            <h2 class="crisis-title">Butuh dukungan sekarang?</h2>
+            <p class="crisis-subtitle">Kamu tidak sendirian. Jika kamu atau temanmu sedang mengalami krisis kesehatan mental atau pikiran yang mengganggu, tim konselor remaja kami siap membantu kapan pun.</p>
+            <span class="crisis-number">119</span>
+            <p>Layanan bantuan darurat 24/7</p>
+            <a href="#" class="btn-white">Hubungi Sekarang</a>
+        </div>
+    </section>
+    <!--footer-->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">MindfulTeen</a>
+                    <p>Portal kesehatan mental yang dirancang khusus untuk remaja Indonesia. Kami hadir untuk memberikan dukungan, informasi, dan sumber daya yang kamu butuhkan untuk kesejahteraan mentalmu.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph ph-tiktok-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph ph-youtube-logo"></i></a>
+                        <a href="#" class="social-link"><i class="ph ph-x-logo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Layanan Kami</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Konseling Online</a></li>
+                        <li><a href="#">Tes Kesehatan Mental</a></li>
+                        <li><a href="#">Support Group</a></li>
+                        <li><a href="#">Webinar & Workshop</a></li>
+                        <li><a href="#">Konsultasi dengan Psikolog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Topik Populer</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Mengelola Kecemasan</a></li>
+                        <li><a href="#">Mengatasi Depresi</a></li>
+                        <li><a href="#">Bullying & Cyberbullying</a></li>
+                        <li><a href="#">Body Image yang Sehat</a></li>
+                        <li><a href="#">Hubungan & Persahabatan</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Informasi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Tim Profesional</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="button-container">
+                <input type="checkbox" class="theme-checkbox">
+            </div> -->
+            <div class="copyright">
+                <p>&copy; 2025 MindfulTeen. Semua hak cipta dilindungi. Dirancang dengan 💙 untuk remaja Indonesia.</p>
+            </div>
+        </div>
+    </footer>
+    <div id="scrollTopBtn">
+        <div class="modul-scrolltop">
+            <i class="ph ph-caret-up"></i>
+        </div>
+    </div>
+     <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+     <!-- Particles JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#9061F9" /* Warna particles ungu yang lebih jelas */
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.7, /* Meningkatkan opacity untuk kejelasan warna */
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.2,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 4, /* Ukuran partikel sedikit lebih besar */
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#A78BFA", /* Warna garis ungu */
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 3,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+    
+    
+    
+    <script>
+        // scroll top
+        let scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        // Cek posisi scroll untuk menampilkan tombol
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 300) { // Muncul setelah scroll 200px
+                scrollTopBtn.classList.add("show");
+            } else {
+                scrollTopBtn.classList.remove("show");
+            }
+        });
+
+        // Fungsi scroll ke atas dengan durasi 0.5 detik
+        scrollTopBtn.addEventListener("click", function () {
+            let scrollDuration = 500; // Waktu dalam milidetik (0.5 detik)
+            let scrollStep = -window.scrollY / (scrollDuration / 15); // Kecepatan scroll
+
+            let scrollInterval = setInterval(function () {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep);
+                } else {
+                    clearInterval(scrollInterval); // Hentikan jika sudah di atas
+                }
+            }, 15); // Jalankan setiap 15ms
+        });    
+    // Loading Screen Animation
+// document.addEventListener('DOMContentLoaded', () => {
+//     const loadingBar = document.querySelector('.loading-bar');
+//     const loadingScreen = document.querySelector('.loading-screen');
+//     const loadingPercentage = document.querySelector('.loading-percentage');
+    
+//     let width = 0;
+//     const interval = setInterval(() => {
+//         if (width >= 100) {
+//             clearInterval(interval);
+//             setTimeout(() => {
+//                 loadingScreen.style.opacity = '0';
+//                 setTimeout(() => {
+//                     loadingScreen.style.display = 'none';
+//                 }, 500);
+//             }, 500);
+//         } else {
+//             width++;
+//             loadingBar.style.width = width + '%';
+//             loadingPercentage.textContent = width + '%';
+//         }
+//     }, 20);
+// });
+
+
+        // Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    }
+    
+    // Mood Tracker Functionality
+    const moodOptions = document.querySelectorAll('.mood-option');
+    const trackMoodBtn = document.getElementById('track-mood');
+    let selectedMood = null;
+    
+    if (moodOptions.length > 0) {
+        moodOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                moodOptions.forEach(opt => opt.classList.remove('active'));
+                // Add active class to selected option
+                this.classList.add('active');
+                selectedMood = this.getAttribute('data-mood');
+            });
+        });
+    }
+    
+    if (trackMoodBtn) {
+        trackMoodBtn.addEventListener('click', function() {
+            if (selectedMood) {
+                // Store mood in localStorage
+                const today = new Date().toISOString().split('T')[0];
+                const moodData = JSON.parse(localStorage.getItem('moodData') || '{}');
+                moodData[today] = selectedMood;
+                localStorage.setItem('moodData', JSON.stringify(moodData));
+                
+                // Show confirmation message
+                alert(`Your mood has been tracked as: ${selectedMood}`);
+                
+                // Update UI to reflect mood tracking
+                updateMoodTrackingUI();
+            } else {
+                alert('Please select a mood first');
+            }
+        });
+    }
+    
+    //dark-mode
+    const toggleInput = document.querySelector(".theme-checkbox");
+    const root = document.documentElement; // Mengakses :root
+
+    // Cek apakah sebelumnya mode gelap sudah aktif
+    if (localStorage.getItem("dark-mode") === "enabled") {
+    root.classList.add("dark-mode");
+    toggleInput.checked = true;
+    }
+
+    toggleInput.addEventListener("change", function() {
+    root.classList.toggle("dark-mode");
+
+    // Simpan preferensi di localStorage
+    if (root.classList.contains("dark-mode")) {
+        localStorage.setItem("dark-mode", "enabled");
+    } else {
+        localStorage.setItem("dark-mode", "disabled");
+    }
+    });
+
+
+
+    // Random Background Color
+    // Function to update UI after mood tracking
+    function updateMoodTrackingUI() {
+        const progressDays = document.querySelectorAll('.progress-day');
+        const moodData = JSON.parse(localStorage.getItem('moodData') || '{}');
+        const dates = Object.keys(moodData);
+        
+        // Update progress days if they exist
+        if (progressDays.length > 0) {
+            // Mark days as completed based on tracked moods
+            for (let i = 0; i < Math.min(dates.length, progressDays.length); i++) {
+                progressDays[i].classList.add('completed');
+            }
+        }
+    }
+    
+    // Call on page load to update UI with existing data
+    updateMoodTrackingUI();
+    
+    // Resource Filtering
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const resourceCards = document.querySelectorAll('.resource-card');
+
+if (filterButtons.length > 0) {
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+
+            const filter = this.getAttribute('data-filter');
+
+            resourceCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.opacity = '1';
+                    card.style.visibility = 'visible';
+                    card.style.position = 'relative';
+                    card.style.transition = 'opacity 0.3s ease-in-out';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.visibility = 'hidden';
+                    card.style.position = 'absolute';
+                }
+            });
+        });
+    });
+}
+
+    
+    // Testimonial Slider
+    const testimonialTrack = document.querySelector('.testimonial-track');
+    const testimonialDots = document.querySelectorAll('.testimonial-dot');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    let currentTestimonial = 0;
+    
+    if (testimonialTrack && testimonialDots.length > 0 && testimonialCards.length > 0) {
+        // Function to update testimonial slider
+        function updateTestimonialSlider() {
+            // Calculate the slide position
+            const slidePosition = -currentTestimonial * 100 + '%';
+            testimonialTrack.style.transform = `translateX(${slidePosition})`;
+            
+            // Update dots
+            testimonialDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentTestimonial);
+            });
+        }
+        
+        // Add click event to dots
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                currentTestimonial = index;
+                updateTestimonialSlider();
+            });
+        });
+        
+        // Auto-rotate testimonials every 5 seconds
+        setInterval(function() {
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+            updateTestimonialSlider();
+        }, 5000);
+    }
+    
+    // Exercise Buttons Functionality
+    const exerciseButtons = document.querySelectorAll('.exercise-btn');
+    
+    if (exerciseButtons.length > 0) {
+        exerciseButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const exerciseCard = this.closest('.exercise-card');
+                const exerciseTitle = exerciseCard.querySelector('.exercise-title').textContent;
+                
+                // Show exercise in progress
+                this.textContent = 'In Progress...';
+                
+                // Simulate exercise in progress
+                setTimeout(() => {
+                    alert(`${exerciseTitle} completed! Great job taking care of your mental health.`);
+                    this.textContent = 'Start Exercise';
+                    
+                    // Update wellness journey progress
+                    updateWellnessJourney();
+                }, 3000);
+            });
+        });
+    }
+    
+    // Function to update wellness journey progress
+    function updateWellnessJourney() {
+        const progressDays = document.querySelectorAll('.progress-day:not(.completed)');
+        if (progressDays.length > 0) {
+            progressDays[0].classList.add('completed');
+        }
+    }
+    
+    // Contact Form Submission
+    const contactForm = document.querySelector('.contact-form form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Validate form (basic validation)
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate form submission
+            alert('Thank you for your message. Our team will contact you soon!');
+            
+            // Reset form
+            contactForm.reset();
+        });
+    }
+    
+    // Smooth scrolling for navigation links
+    const navLinkElements = document.querySelectorAll('a[href^="#"]');
+    
+    navLinkElements.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Close mobile menu if open
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    if (mobileMenuBtn) mobileMenuBtn.classList.remove('active');
+                }
+                
+                // Scroll to target with smooth behavior
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Add three.js hero animation if available
+    if (document.getElementById('hero-canvas') && typeof THREE !== 'undefined') {
+        setupHeroAnimation();
+    }
+});
+
+// Three.js hero animation setup
+function setupHeroAnimation() {
+    const container = document.getElementById('hero-canvas');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    
+    // Initialize three.js scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+    
+    // Create floating particles representing mental wellness
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 500;
+    
+    const posArray = new Float32Array(particlesCount * 3);
+    const colors = new Float32Array(particlesCount * 3);
+    
+    // Generate random positions and colors
+    for (let i = 0; i < particlesCount * 3; i++) {
+        // Positions: random values between -50 and 50
+        posArray[i] = (Math.random() - 0.5) * 100;
+        
+        // Colors: gentle blues and purples for a calming effect
+        if (i % 3 === 0) {
+            colors[i] = 0.5 + Math.random() * 0.3; // R
+            colors[i + 1] = 0.5 + Math.random() * 0.3; // G
+            colors[i + 2] = 0.7 + Math.random() * 0.3; // B
+        }
+    }
+    
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.7,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8
+    });
+    
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+    
+    camera.position.z = 30;
+    
+    // Animation function
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        particlesMesh.rotation.x += 0.0003;
+        particlesMesh.rotation.y += 0.0005;
+        
+        // Handle window resize
+        if (container.clientWidth !== width || container.clientHeight !== height) {
+            const newWidth = container.clientWidth;
+            const newHeight = container.clientHeight;
+            
+            camera.aspect = newWidth / newHeight;
+            camera.updateProjectionMatrix();
+            
+            renderer.setSize(newWidth, newHeight);
+        }
+        
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+    
+    // Add interactive movement based on mouse position
+    window.addEventListener('mousemove', (event) => {
+        const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        
+        particlesMesh.rotation.x += mouseY * 0.001;
+        particlesMesh.rotation.y += mouseX * 0.001;
+    });
+}
+
+    </script>
+    <script>AOS.init();</script>
+    <script>
+        function showDiv() {
+            document.getElementById('resources').style.display = 'block';
+        }
+    </script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="cursor.js"></script>
+    <script src="transparent.js"></script>
+    <script src="features.js"></script>
+    <script src="loading.js"></script>
+    <script src="breathing.js"></script>
+    <script src="stellar-journal.js"></script>
+
+</body>
+</html>
